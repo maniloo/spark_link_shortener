@@ -1,0 +1,43 @@
+<div class="container">
+	<div>
+		<div class="centered_row">
+			<div>
+				<span class="info"> Add new link</span>
+				<%= form_for Link.new do |f| %>
+					<%= f.text_field :destination %>
+
+					<%= f.submit %>
+				<% end %>
+
+				<span class="success">
+					<%= @success %>
+				</span>
+
+				<span class="error">
+					<%= @error %>
+				</span>
+			</div>
+		</div>
+
+			<table>
+				<thead>
+					<th>Destination</th>
+					<th>Short</th> 
+					<th>Full link</th>
+					<th>Visit</th>
+					<th>Delete</th>
+				</thead>
+				<tbody>
+					<% @links.map do |link| %>
+						<tr>
+							<td><%= link.destination %></td>
+							<td>/<%= link.short %></td>
+							<td><%= "#{@server_url}/#{link.short}" %></td>
+							<td><a href="<%= "#{link_protocol(link.destination)}#{link_body(link.destination)}" %>" target="_blank">Visit</a></td>
+							<td><%= link_to "Delete", link_path(link), method: 'delete' %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
